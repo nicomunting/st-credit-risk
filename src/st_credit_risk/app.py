@@ -17,26 +17,41 @@ df["loan_status"] = (
 
 cat_order = {"loan_status": ["Non-Default", "Default"]}
 
-count_fig = px.histogram(df, x="loan_status", category_orders=cat_order, labels=var_labels)
-st.plotly_chart(count_fig)
+tabs = st.tabs(["Overview", "Univariate"])
 
-variable = st.selectbox("Variable", vars, format_func=lambda x: var_labels[x])
+with tabs[0]:
+    count_fig = px.histogram(df, x="loan_status", category_orders=cat_order, labels=var_labels)
+    st.plotly_chart(count_fig)
 
-if variable in df.select_dtypes(include="number"):
-    value_range = st.slider(
-        "Value range", 
-        min_value=df[variable].min(), max_value=df[variable].max(), 
-        value=(df[variable].min(), df[variable].max())
+    st.write(df)
+
+with tabs[1]:
+    variable = st.selectbox("Variable", vars, format_func=lambda x: var_labels[x])
+    var_is_numeric = variable in df.select_dtypes(include="number")
+
+    if var_is_numeric:
+        value_range = st.slider(
+            "Value range", 
+            min_value=df[variable].min(), max_value=df[variable].max(), 
+            value=(df[variable].min(), df[variable].max())
+        )
+        hist_df = df.loc[df[variable].between(value_range[0], value_range[1]), :]
+    else:
+        hist_df = df
+
+    hist_fig = px.histogram(
+        hist_df, 
+        x=variable, color="loan_status", 
+        category_orders=cat_order, labels=var_labels,
     )
-    hist_df = df.loc[df[variable].between(value_range[0], value_range[1]), :]
-else:
-    hist_df = df
+    st.plotly_chart(hist_fig, use_container_width=True)
 
-hist_fig = px.histogram(
-    hist_df, 
-    x=variable, color="loan_status", 
-    category_orders=cat_order, labels=var_labels,
-)
-st.plotly_chart(hist_fig)
+    if var_is_numeric:
+        violin_fig = px.violin(
+            df, 
+            x=variable, color="loan_status", 
+            category_orders=cat_order, labels=var_labels,
+            points="outliers", box=True
+        )
+        st.plotly_chart(violin_fig, use_container_width=True)
 
-st.write(df)
