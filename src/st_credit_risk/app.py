@@ -56,7 +56,8 @@ with tabs[1]:
         hist_df, 
         x=variable, color="loan_status", 
         category_orders=categories_order, labels=var_labels,
-        marginal="rug" if var_is_numeric else None
+        marginal="rug" if var_is_numeric else None,
+        title="Histogram of " + var_labels[variable]
     )
     st.plotly_chart(hist_fig, use_container_width=True)
 
@@ -65,7 +66,10 @@ with tabs[1]:
             df, 
             x=variable, color="loan_status", 
             category_orders=categories_order, labels=var_labels,
-            points="outliers", box=True
+            points="outliers", box=True,
+            title="Violin plot of " + var_labels[variable]
         )
         st.plotly_chart(violin_fig, use_container_width=True)
 
+st.write("#")
+st.caption("Data from [Credit Risk Dataset from Kaggle](https://www.kaggle.com/datasets/laotse/credit-risk-dataset/).")
