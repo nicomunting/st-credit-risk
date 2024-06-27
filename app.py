@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-from utils import vars, var_labels
+from st_credit_risk.utils import vars, var_labels
 
 
 st.set_page_config("Credit Risk EDA", page_icon=":credit_card:", layout="wide")
@@ -13,7 +13,7 @@ st.title("Credit Risk - Exploratory Data Analysis")
 
 
 # From https://www.kaggle.com/datasets/laotse/credit-risk-dataset/
-df = pd.read_csv(os.path.join("..", "..", "data", "credit_risk_dataset.csv"))
+df = pd.read_csv(os.path.join("data", "credit_risk_dataset.csv"))
 
 df["loan_status"] = (
     df["loan_status"].astype("category")

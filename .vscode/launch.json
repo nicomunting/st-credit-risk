@@ -10,7 +10,7 @@
             "request": "launch",
             "module": "streamlit",
             "args": ["run", "app.py"],
-            "cwd": "${workspaceFolder}/src/st_credit_risk"
+            "cwd": "${workspaceFolder}"
         }
     ]
 }
