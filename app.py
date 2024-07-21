@@ -25,7 +25,7 @@ categories_order = {
     "loan_grade": ["A", "B", "C", "D", "E", "F", "G"],
 }
 
-tabs = st.tabs(["Overview", "Univariate"])
+tabs = st.tabs(["Overview", "Univariate", "Bivariate"])
 
 with tabs[0]:
     col1, col2 = st.columns([1, 3], gap="large")
@@ -70,6 +70,11 @@ with tabs[1]:
             title="Violin plot of " + var_labels[variable]
         )
         st.plotly_chart(violin_fig, use_container_width=True)
+
+with tabs[2]:
+    corr_df = df.corr(numeric_only=True)
+
+    st.write(corr_df)
 
 st.write("#")
 st.caption("Data from [Credit Risk Dataset from Kaggle](https://www.kaggle.com/datasets/laotse/credit-risk-dataset/).")
