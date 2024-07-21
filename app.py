@@ -74,7 +74,9 @@ with tabs[1]:
 with tabs[2]:
     corr_df = df.corr(numeric_only=True)
 
-    st.write(corr_df)
+    corr_fig = px.imshow(corr_df, color_continuous_scale='RdBu', color_continuous_midpoint=0.0)
+
+    st.plotly_chart(corr_fig)
 
 st.write("#")
 st.caption("Data from [Credit Risk Dataset from Kaggle](https://www.kaggle.com/datasets/laotse/credit-risk-dataset/).")
