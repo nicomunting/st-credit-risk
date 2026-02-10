@@ -31,7 +31,7 @@ with tabs[0]:
     col1, col2 = st.columns([1, 3], gap="large")
     with col1:
         count_fig = px.histogram(df, x="loan_status", category_orders=categories_order, labels=var_labels)
-        st.plotly_chart(count_fig, use_container_width=False)
+        st.plotly_chart(count_fig, width="content")
 
     with col2:
         st.write(df)
@@ -59,7 +59,7 @@ with tabs[1]:
         marginal="rug" if var_is_numeric else None,
         title="Histogram of " + var_labels[variable]
     )
-    st.plotly_chart(hist_fig, use_container_width=True)
+    st.plotly_chart(hist_fig, width="stretch")
 
     if var_is_numeric:
         violin_fig = px.violin(
@@ -69,7 +69,7 @@ with tabs[1]:
             points="outliers", box=True,
             title="Violin plot of " + var_labels[variable]
         )
-        st.plotly_chart(violin_fig, use_container_width=True)
+        st.plotly_chart(violin_fig, width="stretch")
 
 st.write("#")
 st.caption("Data from [Credit Risk Dataset from Kaggle](https://www.kaggle.com/datasets/laotse/credit-risk-dataset/).")
