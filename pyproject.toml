@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "st-credit-risk"
-version = "0.1.0"
+version = "0.2.0"
 description = "Credit risk data visualized using Streamlit"
 authors = ["Nico Munting <nico.munting@muntech.nl>"]
 license = "MIT License"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9.8"
+python = "^3.10"
 numpy = "<2"
 pandas = "^2.2.2"
 streamlit = "^1.35.0"
